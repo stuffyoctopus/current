@@ -1,11 +1,11 @@
 
 /**************************************************************************/
 /*!
-This is a demo for the Adafruit MCP9808 breakout
-----> http://www.adafruit.com/products/1782
-Adafruit invests time and resources providing this open source code,
-please support Adafruit and open-source hardware by purchasing
-products from Adafruit!
+  This is a demo for the Adafruit MCP9808 breakout
+  ----> http://www.adafruit.com/products/1782
+  Adafruit invests time and resources providing this open source code,
+  please support Adafruit and open-source hardware by purchasing
+  products from Adafruit!
 */
 /**************************************************************************/
 
@@ -16,15 +16,15 @@ products from Adafruit!
 Adafruit_MCP9808 tempsensor = Adafruit_MCP9808();
 
 void setup() {
-pinMode(4, OUTPUT);
-pinMode(5, OUTPUT);
-pinMode(6, OUTPUT);
-pinMode(7, OUTPUT);
+  pinMode(4, OUTPUT);
+  pinMode(5, OUTPUT);
+  pinMode(6, OUTPUT);
+  pinMode(7, OUTPUT);
 
   Serial.begin(9600);
   while (!Serial); //waits for serial terminal to be open, necessary in newer arduino boards.
   Serial.println("MCP9808 demo");
-  
+
   // Make sure the sensor is found, you can also pass in a different i2c
   // address with tempsensor.begin(0x19) for example, also can be left in blank for default address use
   // Also there is a table with all addres possible for this sensor, you can connect multiple sensors
@@ -42,10 +42,10 @@ pinMode(7, OUTPUT);
     Serial.println("Couldn't find MCP9808! Check your connections and verify the address is correct.");
     while (1);
   }
-    
-   Serial.println("Found MCP9808!");
 
-  tempsensor.setResolution(3); // sets the resolution mode of reading, the modes are defined in the table bellow:
+  Serial.println("Found MCP9808!");
+
+  tempsensor.setResolution(3); // sets the resolution mode of reading, the modes are defined in the table belHIGH:
   // Mode Resolution SampleTime
   //  0    0.5°C       30 ms
   //  1    0.25°C      65 ms
@@ -54,38 +54,45 @@ pinMode(7, OUTPUT);
 }
 
 void loop() {
- 
+
   float c = tempsensor.readTempC();
   float f = tempsensor.readTempF();
-  Serial.print("Temp: "); 
- 
+  Serial.print("Temp: ");
+
   Serial.print(f, 4); Serial.println("*F.");
-  
+
   delay(200);
-
-
-  if ( f > 80) {
-digitalWrite(7, LOW);
-    
-  } else { 
-    digitalWrite(7, HIGH);
-  }
-  if ( f > 82) {
-digitalWrite(6, LOW);
-    
-  } else { 
+//turn all of them off to start 
+  digitalWrite(7, HIGH);
+  digitalWrite(6, HIGH);
+  digitalWrite(5, HIGH);
+  digitalWrite(4, HIGH);
+  //turn the first one on
+  if (f > 80 && f < 82) {
+    digitalWrite(7, LOW);
     digitalWrite(6, HIGH);
-  }
-  if ( f > 84) {
-digitalWrite(5, LOW );
-    
-  } else { 
     digitalWrite(5, HIGH);
-  }
-  if ( f > 86) {
-digitalWrite(4, LOW);
-    
-  } else { 
     digitalWrite(4, HIGH);
+  }
+  //turn the second and first one on
+  if ( f > 82 && f < 84) {
+    digitalWrite(7, LOW);
+    digitalWrite(6, LOW);
+    digitalWrite(5, HIGH);
+    digitalWrite(4, HIGH);
+  }
+  //turn the third and second and first one on
+ if ( f > 84 && f < 86) {
+    digitalWrite(7, LOW);
+    digitalWrite(6, LOW);
+    digitalWrite(5, LOW);
+    digitalWrite(4, HIGH);
+  }
+  //turn all of them on
+   if ( f > 86 && f < 88) {
+    digitalWrite(7, LOW);
+    digitalWrite(6, LOW);
+    digitalWrite(5, LOW);
+    digitalWrite(4, LOW);
   }
 }
