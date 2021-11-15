@@ -62,11 +62,11 @@ void loop() {
   Serial.print(f, 4); Serial.println("*F.");
 
   delay(200);
-//turn all of them off to start 
+  //turn all of them off to start
   digitalWrite(7, HIGH);
   digitalWrite(6, HIGH);
-  digitalWrite(5, HIGH);
-  digitalWrite(4, HIGH);
+  digitalWrite(5, HIGH); 
+  digitalWrite(4, HIGH); 
   //turn the first one on
   if (f > 80 && f < 82) {
     digitalWrite(7, LOW);
@@ -82,14 +82,14 @@ void loop() {
     digitalWrite(4, HIGH);
   }
   //turn the third and second and first one on
- if ( f > 84 && f < 86) {
+  if ( f > 84 && f < 86) {
     digitalWrite(7, LOW);
     digitalWrite(6, LOW);
     digitalWrite(5, LOW);
     digitalWrite(4, HIGH);
   }
   //turn all of them on
-   if ( f > 86 && f < 88) {
+  if ( f > 86 && f < 88) {
     digitalWrite(7, LOW);
     digitalWrite(6, LOW);
     digitalWrite(5, LOW);
